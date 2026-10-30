@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de Produtos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Cadastro de produtos</h1>
+      <p class="sub">Registre estoque, custo e preço de venda de cada item.</p>
+    </div>
+  </header>
+
+  <div class="summary" id="summary" aria-live="polite"></div>
+
+  <div class="layout">
+    <section class="panel form-panel" aria-labelledby="form-title">
+      <h2 id="form-title">Novo produto</h2>
+      <form id="form" novalidate>
+        <div class="field">
+          <label for="nome">Nome do produto</label>
+          <input id="nome" type="text" autocomplete="off" maxlength="120" placeholder="Ex.: Caneca térmica 450 ml">
+          <div class="err" id="err-name" role="alert"></div>
+        </div>
+        <div class="field">
+          <label for="uid">ID único</label>
+          <div class="idrow">
+            <input id="uid" class="num" type="text" autocomplete="off" maxlength="40" placeholder="PRD-0001">
+            <button type="button" id="gen">Gerar</button>
+          </div>
+          <div class="err" id="err-unique_id" role="alert"></div>
+        </div>
+        <div class="field">
+          <label for="desc">Descrição</label>
+          <textarea id="desc" maxlength="500" placeholder="Material, cor, medidas, observações"></textarea>
+          <div class="err" id="err-description" role="alert"></div>
+        </div>
+        <div class="pair">
+          <div class="field">
+            <label for="qtd">Quantidade</label>
+            <input id="qtd" class="num" type="number" min="0" step="1" inputmode="numeric" placeholder="0">
+            <div class="err" id="err-quantity" role="alert"></div>
+          </div>
+          <div class="field">
+            <label for="compra">Valor de compra (R$)</label>
+            <input id="compra" class="num" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
+            <div class="err" id="err-purchase_price" role="alert"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="venda">Valor de venda (R$)</label>
+          <input id="venda" class="num" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
+          <div class="err" id="err-sale_price" role="alert"></div>
+          <div class="margin-line" id="margin" hidden></div>
+        </div>
+        <div class="field">
+          <label for="img">Imagem do produto</label>
+          <div class="imgbox">
+            <div class="prev" id="prev">sem imagem</div>
+            <div style="min-width:0;flex:1">
+              <input id="img" type="file" accept="image/*">
+              <div class="hint">Reduzida automaticamente para 160 px.</div>
+            </div>
+          </div>
+          <div class="err" id="err-image" role="alert"></div>
+          <button type="button" class="small" id="rmimg" hidden style="align-self:flex-start">Remover imagem</button>
+        </div>
+        <div class="actions">
+          <button type="submit" class="primary" id="save">Cadastrar produto</button>
+          <button type="button" id="cancel" hidden>Cancelar edição</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel ledger" aria-labelledby="ledger-title">
+      <div class="ledger-head">
+        <h2 id="ledger-title">Produtos cadastrados</h2>
+        <input id="q" class="search" type="search" placeholder="Buscar por nome ou ID" aria-label="Buscar produtos">
+      </div>
+      <div class="cols" aria-hidden="true">
+        <span></span><span>Produto</span><span class="r">Qtd.</span><span class="r">Compra</span><span class="r">Venda</span><span></span>
+      </div>
+      <div id="list"></div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+<script src="/app.js"></script>
+</body>
+</html>
